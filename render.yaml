@@ -1,26 +1,11 @@
 services:
   - type: web
     name: quantum-logistics-api
-    runtime: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /health
-    disk:
-      name: quantum-logistics-data
-      mountPath: /var/data
-      sizeGB: 1
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
     envVars:
-      - key: STRIPE_SECRET_KEY
-        sync: false
-      - key: STRIPE_WEBHOOK_SECRET
-        sync: false
-      - key: STRIPE_PRICE_ID
-        sync: false
-      - key: PUBLIC_BASE_URL
-        sync: false
-      - key: ADMIN_TOKEN
-        sync: false
-      - key: EXPECTED_CURRENCY
-        value: usd
-      - key: DATABASE_PATH
-        value: /var/data/quantum_logistics.db
+      - key: PYTHON_VERSION
+        value: 3.11.9
